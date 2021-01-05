@@ -53,3 +53,17 @@ Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
 5. Генератор паролей (длина 64 бита, метод SHA512, с использованием статической соли).
 6. Enum (пол) с конвертером в модели "Пользователь" для работы с Spring WEB и Hibernate
 
+### Управление пользователями
+Используется БД Postgres, с таблицами:
+users - пользователи, 
+roles - поли, 
+user_roles - связка пользователей и ролей
+
+Сервис работает с форматом JSON и имеет следующий набор методов:
+ - GET http://localhost:8080/user/list
+ - GET http://localhost:8080/user/get/{id}
+ - DELETE http://localhost:8080/user/delete/{id}
+ - POST http://localhost:8080/user/add
+ - PUT http://localhost:8080/user/edit/{id}
+ 
+ Коллекция POSTMAN запросов находится в файле UserManagementLocalHost.postman_collection.json (временно неактуально)
