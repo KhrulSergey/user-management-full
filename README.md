@@ -19,7 +19,7 @@ Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
 ### Sugar 
 
 1. PostgreSQL and MongoDB connection in one Java Spring project.
-2. Thymeleaf templates for web pages
+2. Thymeleaf templates for web pages with multi language option
 3. REST API for manage entities.
 4. Complex dependencies and connections between Domain models.
 5. Password generator (64 bit lenght, SHA512 method, using static Salt).
@@ -45,7 +45,7 @@ Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
 ### Основные особенности
 
 1. Использование соединений с PostgreSQL и MongoDB в одном проекте Java Spring.
-2. Шаблоны Thymeleaf для просмотра веб-страниц
+2. Шаблоны Thymeleaf для веб-страниц с возможностью выбора нескольких языков
 3. REST API для управления сущностями.
 4. Сложные зависимости и связи между моделями (сущностями).
 5. Генератор паролей (длина 64 бита, метод SHA512, с использованием статической соли).
