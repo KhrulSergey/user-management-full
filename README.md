@@ -1,4 +1,4 @@
----
+
 # Thymeleaf for User and Transaction (billing) Management.
 
 Web application that allows you:
@@ -36,7 +36,8 @@ Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
 Тэги: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb
 
 В проекте используется: JDK14, MongoDB Atlas Cluster, удаленный сервер PostgreSQL.
----
+
+
 ### Конфигурация работает для запуска проекта:
 
 1. Используйте src / resources / application.properties для настройки подключения к БД MongoDB, PostgreSQL или используйте существующий демонстрационный доступ.
@@ -51,4 +52,4 @@ Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
 4. Сложные зависимости и связи между моделями (сущностями).
 5. Генератор паролей (длина 64 бита, метод SHA512, с использованием статической соли).
 6. Enum (пол) с конвертером в модели "Пользователь" для работы с Spring WEB и Hibernate
----
+
