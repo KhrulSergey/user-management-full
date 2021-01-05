@@ -5,11 +5,12 @@ Web application that allows you:
  1. manage users (create, view the list and details, edit and delete) with RESTful services,
  2. login/register in the system with using PostgreSQL data
  3. see the list of transaction from NoSQL (MongoDB)
+
 Tags: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb
 
 Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
-
 ---
+
 ### Configuration works for start of project:
 
 1. Use src/resources/application.properties for configure connection to DB MongoDB, PostgreSQL or use existed demo access.
