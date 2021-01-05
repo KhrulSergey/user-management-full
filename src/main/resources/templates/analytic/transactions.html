@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head th:insert="fragments/header"></head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Transaction List </h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>Account</th>
+                        <th>Bucket Start Date</th>
+                        <th>Bucket End Date</th>
+                        <th>Transaction Count</th>
+                        <th>Transaction Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${transactionList == null || transactionList.isEmpty()}">
+                        <td colspan="6"> No Transactions in DataBase</td>
+                    </tr>
+                    <tr th:each="transaction : ${transactionList?.content}">
+                        <td><span th:text="${transaction.id}"> ID </span></td>
+                        <td><span th:text="${transaction.accountId}"> Account </span></td>
+                        <td><span th:text="${transaction.bucketStartDate}"> Bucket Start Date </span></td>
+                        <td><span th:text="${transaction.bucketEndDate}"> Bucket End Date </span></td>
+                        <td><span th:text="${transaction.transactionCount}"> Transaction Count </span></td>
+                        <td><span th:text="${#numbers.formatCurrency(transaction.getTransactionTotal())}"> Transaction Details </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${transactionList?.totalPages > 0}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/analytic/transactions(size=${transactionList.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}
+                       th:class="${pageNumber==transactionList.number + 1} ? active"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:insert="fragments/footer"></footer>
+</html>

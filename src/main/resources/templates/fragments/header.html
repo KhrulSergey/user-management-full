@@ -1,0 +1,60 @@
+
+<head th:fragment="head" xmlns:th="http://thymeleaf.org">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta content="ie=edge" http-equiv="x-ua-compatible"/>
+    <title th:text="#{metaTitle} ? #{metaTitle} : 'Spring MVC Demo'"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/hello.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/js/hello.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#locales').value = '';
+
+        $('#locales').change(function () {
+          var selectedOption = $('#locales').val();
+          if (selectedOption != '') {
+            window.location.replace('?lang=' + selectedOption);
+          }
+        });
+      });
+    </script>
+</head>
+<body>
+<div class="container" xmlns:th="http://thymeleaf.org">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse">
+
+                <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{navbar.homeLinkText}"></a>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/login}" th:text="#{navbar.loginLinkText}">Login</a></li>
+                    <li><a href="#" th:href="@{/register}" th:text="#{navbar.registerLinkText}">Register</a></li>
+                </ul>
+
+                <div class="nav navbar-nav navbar-right">
+                    <p></p>
+                    <span th:text="#{language.change}"></span>:
+                    <select id="locales">
+                        <option value=""></option>
+                        <option value="en" th:text="#{lang.eng}" th:selected="${#locale.language == 'en'}"></option>
+                        <option value="es" th:text="#{lang.es}" th:selected="${#locale.language == 'es'}"></option>
+                        <option value="it" th:text="#{lang.it}" th:selected="${#locale.language == 'it'}"></option>
+                        <option value="fr" th:text="#{lang.fr}" th:selected="${#locale.language == 'fr'}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

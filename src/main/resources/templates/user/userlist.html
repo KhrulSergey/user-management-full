@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head th:insert="fragments/header"></head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> User List </h1>
+        </div>
+        <div>
+            <a class="btn btn-success" href="#" th:href="@{/user/register}"> Add User </a>
+            <a class="btn btn-primary" href="#" th:href="@{/user/modify}"
+               th:classappend="${users.empty} ? 'disabled' : ''"> Edit User </a>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>UserName</th>
+                        <th>Login</th>
+                        <th>Password</th>
+                        <th>Gender</th>
+                        <th>Roles</th>
+                        <th>Created date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${users.empty}">
+                        <td colspan="2"> No Users in DataBase</td>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td><span th:text="${user.id}"> ID </span></td>
+                        <td><span th:text="${user.name}"> UserName </span></td>
+                        <td><span th:text="${user.username}"> Login </span></td>
+                        <td><span th:text="${user.password}"> Password </span></td>
+                        <td><span th:text="${user.gender}"> Gender </span></td>
+                        <td><span th:text="${user.roles}"> Roles </span></td>
+                        <td><span th:text="${#temporals.format(user.createDate, 'dd.MM.yy')}"> Created date </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer th:insert="fragments/footer"></footer>
+</html>

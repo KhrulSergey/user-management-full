@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head th:insert="fragments/header"></head>
+
+<div class="container">
+    <h1 th:text="#{welcome.message}"></h1>
+    <div class="container">
+        <h3><a href="#" th:href="@{/user/all}">All user list</a></h3>
+        <h3><a href="#" th:href="@{/analytic/transactions}">Transactions</a></h3>
+    </div>
+</div>
+
+<footer  th:insert="fragments/footer"></footer>
+</html>
