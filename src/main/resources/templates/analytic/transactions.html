@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1> Transaction List </h1>
+            <h1 th:text="#{title.transaction}"></h1>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -31,7 +31,8 @@
                         <td><span th:text="${transaction.bucketStartDate}"> Bucket Start Date </span></td>
                         <td><span th:text="${transaction.bucketEndDate}"> Bucket End Date </span></td>
                         <td><span th:text="${transaction.transactionCount}"> Transaction Count </span></td>
-                        <td><span th:text="${#numbers.formatCurrency(transaction.getTransactionTotal())}"> Transaction Details </span></td>
+                        <td><span th:text="${#numbers.formatCurrency(transaction.getTransactionTotal())}"> Transaction Details </span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -46,4 +47,5 @@
     </div>
 
     <footer th:insert="fragments/footer"></footer>
+</div>
 </html>

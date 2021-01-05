@@ -8,7 +8,7 @@ Web application that allows you:
 
 Tags: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb
 
-Project use: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
+Project uses: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
 ---
 
 ### Configuration works for start of project:

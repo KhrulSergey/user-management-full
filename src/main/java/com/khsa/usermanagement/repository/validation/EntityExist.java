@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = EntityExistValidator.class)
 public @interface EntityExist {
 
-    String message() default "{welcome.message}";
+    String message() default "{message.entityExist}";
 
     Class<?>[] groups() default {};
 

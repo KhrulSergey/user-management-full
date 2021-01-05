@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1> User List </h1>
+            <h1 th:text="#{title.userlist}"></h1>
         </div>
         <div>
             <a class="btn btn-success" href="#" th:href="@{/user/register}"> Add User </a>
@@ -47,4 +47,6 @@
     </div>
 
     <footer th:insert="fragments/footer"></footer>
+</div>
+
 </html>

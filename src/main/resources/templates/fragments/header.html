@@ -3,7 +3,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta content="ie=edge" http-equiv="x-ua-compatible"/>
-    <title th:text="#{metaTitle} ? #{metaTitle} : 'Spring MVC Demo'"></title>
+    <title th:text="#{metaTitle.main} ? #{metaTitle.main} : 'Spring MVC Demo'"></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/hello.css"/>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -36,7 +36,6 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-collapse collapse">
-
                 <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{navbar.homeLinkText}"></a>
                 <ul class="nav navbar-nav">
                     <li><a href="#" th:href="@{/login}" th:text="#{navbar.loginLinkText}">Login</a></li>
@@ -45,7 +44,7 @@
 
                 <div class="nav navbar-nav navbar-right">
                     <p></p>
-                    <span th:text="#{language.change}"></span>:
+                    <span th:text="#{lang.change}"></span>:
                     <select id="locales">
                         <option value=""></option>
                         <option value="en" th:text="#{lang.eng}" th:selected="${#locale.language == 'en'}"></option>
