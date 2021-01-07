@@ -9,6 +9,7 @@ import com.khsa.usermanagement.util.GenderConverter;
 import com.khsa.usermanagement.util.PasswordConverter;
 import com.khsa.usermanagement.util.SerializerRoleJsonConverter;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -77,6 +78,7 @@ public class User implements Serializable, UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+    @CreationTimestamp
     @Column(name = "create_date")
     private LocalDateTime createDate;
 

@@ -6,8 +6,11 @@
 <div class="container">
     <h1 th:text="#{title.home}"></h1>
     <div class="container">
+        <h3>Welcome, <span th:text="${username}"></span> </h3>
         <h3><a href="#" th:href="@{/user/all}">All user list</a></h3>
         <h3><a href="#" th:href="@{/analytic/transactions}">Transactions</a></h3>
+
+        <a href="${contextPath}/update">Update your profile</a> <br/>
     </div>
 </div>
 

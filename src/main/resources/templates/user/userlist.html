@@ -36,12 +36,27 @@
                         <td><span th:text="${user.name}"> UserName </span></td>
                         <td><span th:text="${user.username}"> Login </span></td>
                         <td><span th:text="${user.password}"> Password </span></td>
-                        <td><span th:text="${user.gender}"> Gender </span></td>
-                        <td><span th:text="${user.roles}"> Roles </span></td>
-                        <td><span th:text="${#temporals.format(user.createDate, 'dd.MM.yy')}"> Created date </span></td>
+                        <td><span th:text="${user.gender?.getName()}"> Gender </span></td>
+                        <td><span th:text="${user.roles.isEmpty()}?'unknown':${user.roles}"> Roles </span></td>
+                        <td><span th:text="${user.createDate}!=null?${#temporals.format(user.createDate, 'dd.MM.yy')}:'unknown'"> Created date </span></td>
                     </tr>
                     </tbody>
                 </table>
+
+                <div class="pagination-div">
+                    <span th:if="${users.hasPrevious()}">
+                        <a th:href="@{/user/all(page=${users.number-1},size=${users.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, users.totalPages - 1)}">
+                        <span th:if="${users.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${users.number == i}">
+                            <a th:href="@{/user/all(page=${i},size=${users.size})}">[[${i}+1]]</a>
+                        </span>
+                    </th:block>
+                    <span th:if="${users.hasNext()}">
+                        <a th:href="@{/user/all(page=${users.number+1},size=${users.size})}">Next</a>
+                    </span>
+                </div>
             </div>
         </div>
     </div>

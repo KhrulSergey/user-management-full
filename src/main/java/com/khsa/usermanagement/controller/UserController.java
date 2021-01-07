@@ -1,6 +1,8 @@
 package com.khsa.usermanagement.controller;
 
+import com.khsa.usermanagement.domain.model.Gender;
 import com.khsa.usermanagement.domain.model.User;
+import com.khsa.usermanagement.service.RoleService;
 import com.khsa.usermanagement.service.UserService;
 import com.khsa.usermanagement.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Set;
@@ -47,10 +50,12 @@ public class UserController {
     public static final String WEB_PATH_EDIT = "/modify";
 
     private UserService userService;
+    private RoleService roleService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     /**
@@ -80,10 +85,10 @@ public class UserController {
     protected ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userNew", new User());
-//        modelAndView.addObject("genderList", Gender.values());
+        modelAndView.addObject("genderList", Gender.values());
+        modelAndView.addObject("roleList", roleService.list());
         modelAndView.setViewName("user/register");
         return modelAndView;
-//        return "user/register";
     }
 
     @PostMapping(path = WEB_PATH_SAVE)
@@ -91,21 +96,16 @@ public class UserController {
                                            BindingResult result) {
 
         if (result.hasErrors()) {
-            ModelAndView mav = new ModelAndView("user/register");
-            mav.addObject("userNew", user);
-            return mav;
-            //return new ModelAndView("register-user", "user", user);
+            ModelAndView modelAndView = new ModelAndView("user/register");
+            modelAndView.addObject("userNew", user);
+            modelAndView.addObject("genderList", Gender.values());
+            modelAndView.addObject("roleList", roleService.list());
+            return modelAndView;
         }
 
         User u = userService.add(user);
         request.getSession().setAttribute("user", u);
-        //TODO return to prev page or home
-        return new ModelAndView("account-success", "user", u);
-
-//        } catch (UserException e) {
-//            System.out.println("Exception: " + e.getMessage());
-//            return new ModelAndView("error", "errorMessage", "error while login");
-//        }
+        return new ModelAndView("register-success", "user", u);
     }
 
 
@@ -137,14 +137,9 @@ public class UserController {
 
     @GetMapping(path = WEB_PATH_LIST)
     public ModelAndView showAllUsers(Model model, @PageableDefault Pageable pageable) {
-        try {
-            Page<User> users = userService.list(pageable);
-            model.addAttribute("users", users);
-            return new ModelAndView("user/userlist", "users", users);
-        } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-            return new ModelAndView("error", "errorMessage", "error while login");
-        }
+        Page<User> users = userService.list(pageable);
+        model.addAttribute("users", users);
+        return new ModelAndView("user/userlist", "users", users);
     }
 
     /**

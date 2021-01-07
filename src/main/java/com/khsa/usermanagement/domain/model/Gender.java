@@ -1,17 +1,22 @@
 package com.khsa.usermanagement.domain.model;
 
 public enum Gender {
-    MALE('M'),
-    FEMALE('F');
+    MALE('M', "Male"),
+    FEMALE('F', "Female");
 
     private final char code;
+    private final String name;
 
-    private Gender(char code) {
+    private Gender(char code, String name) {
         this.code = code;
+        this.name = name;
     }
 
     public char getCode() {
         return code;
+    }
+    public String getName() {
+        return name;
     }
 
     /**

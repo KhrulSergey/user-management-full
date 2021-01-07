@@ -24,9 +24,12 @@ public class AdminPanelController {
     }
 
     @GetMapping({"/homepage", "/home"})
-    public String home() {
+    public ModelAndView home() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "homepage";
+        ModelAndView model = new ModelAndView();
+        model.addObject("username", authentication.getName());
+        model.setViewName("homepage");
+        return model;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
