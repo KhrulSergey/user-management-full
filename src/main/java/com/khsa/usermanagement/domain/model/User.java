@@ -60,11 +60,6 @@ public class User implements Serializable, UserDetails {
     @Column(name = "password")
     private String password;
 
-//    @Bean
-//    public PasswordEncoder getPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Convert(converter = GenderConverter.class)
     @Column(name = "gender")
     private Gender gender;

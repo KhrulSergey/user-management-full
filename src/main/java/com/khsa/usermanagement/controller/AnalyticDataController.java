@@ -56,16 +56,15 @@ public class AnalyticDataController {
         ModelAndView model = new ModelAndView();
         final int currentPage = page.orElse(1);
         final int pageSize = size.orElse(5);
-
+        //TODO fix auth User getter
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        //TODO fix dependencies between Account, Customer and User models
         Customer customer = customerService.getByUserName(username);
         if (!username.equals("anonymousUser") && nonNull(customer)) {
             List<Account> accounts = customer.getAccounts().stream()
                     .map(accountGUID -> accountService.getByGuid(accountGUID))
                     .collect(Collectors.toList());
 
-
-//        SearchUtil.pageable(page - 1, size, direction, properties)
             Page<Transaction> transactionList = transactionService.list(
                     SearchUtil.pageable(currentPage - 1, pageSize, Sort.Direction.DESC, "property"),
                     accounts);
@@ -73,7 +72,7 @@ public class AnalyticDataController {
             if (!transactionList.isEmpty()) {
                 model.addObject("transactionList", transactionList);
             }
-
+            //Pagination property for web-page
             int totalPages = transactionList.getTotalPages();
             if (totalPages > 0) {
                 List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)

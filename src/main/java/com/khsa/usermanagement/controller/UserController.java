@@ -163,15 +163,13 @@ public class UserController {
         }
     }
 
-    // TODO update page
+    // TODO update EDIT page
     @RequestMapping(path = "/update/{id}")
     public ModelAndView edit(@PathVariable Integer id, Model model) {
         User user = userService.get(id);
         model.addAttribute("user", user);
         return new ModelAndView("userform", "user", user);
     }
-
-    // TODO update page
     @RequestMapping(path = "/update", method = RequestMethod.POST)
     public ModelAndView edit(User user, Model model) {
 

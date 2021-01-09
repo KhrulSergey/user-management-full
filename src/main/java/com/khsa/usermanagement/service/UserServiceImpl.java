@@ -110,12 +110,6 @@ public class UserServiceImpl implements UserService {
                 throw new ConstraintViolationException(violations);
             }
         } else {
-            //TODO решить вопрос с валидацией
-//            ConstraintViolation<User> violation = ConstraintViolationImpl.forBeanValidation(null,
-//                    null, null, "User is not exist",
-//                    User.class, user, null, user, null, null,
-//                    null, null);
-//         throw new ConstraintViolationException(Collections.singleton(violations));
             Set<ConstraintViolation<User>> violations = validator.validate(user);
             LOG.warn("user: %s is not exist");
             throw new ConstraintViolationException(violations);
