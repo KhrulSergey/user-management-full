@@ -18,15 +18,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @Data
 @Entity
 @Table(name = "users")
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
 
     //Static parameters
     public static final String ROLE_VALIDATION_MESSAGE = "There is no such role(s)";
@@ -71,7 +69,7 @@ public class User implements Serializable, UserDetails {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
     @CreationTimestamp
     @Column(name = "create_date")
@@ -84,7 +82,7 @@ public class User implements Serializable, UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(new ArrayList<>());
+        return getRoles();
     }
 
     @Override

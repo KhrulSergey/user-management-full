@@ -25,11 +25,12 @@ public interface UserRepository extends JpaRepository<User, Long>,
     Page<User> findAllByOrderByIdAsc(Pageable pageable);
 
     @Cacheable
-    @Override
     Optional<User> findById(Long id);
 
     @Cacheable
-    @Override
+    Optional<User> findByUsername(String username);
+
+    @Cacheable
     <S extends User> S saveAndFlush(S entity);
 
     @Override

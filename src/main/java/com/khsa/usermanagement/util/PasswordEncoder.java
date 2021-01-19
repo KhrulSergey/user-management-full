@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 
-public final class PasswordHelper {
+public final class PasswordEncoder {
 
     //Should be more than one
     static int CRYPTO_ITERATIONS = 1;
@@ -19,8 +19,6 @@ public final class PasswordHelper {
 
     /**
      * Generate 8 bit password for User with digits, upper and lower case String
-     *
-     * @return
      */
     public static String generatePassword() {
         PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()

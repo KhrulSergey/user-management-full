@@ -1,6 +1,7 @@
 package com.khsa.usermanagement.domain.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable {
+public class Role implements GrantedAuthority {
 
     private static final long serialVersionUID = 1623413704426592666L;
 
@@ -22,4 +23,10 @@ public class Role implements Serializable {
 
     @Column(name = "name", unique = true)
     private String name;
+
+
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 }

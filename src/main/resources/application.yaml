@@ -1,0 +1,73 @@
+example:
+  kafka:
+    consumer-enabled: ${consumer-enabled:true}
+
+spring:
+  application:
+    name: User and Role Management System - Demo project
+# ===============================
+# JPA / HIBERNATE
+# ===============================
+  data:
+    mongodb:
+      repositories:
+        enabled: true
+      uri: mongodb+srv://demo:test@testcluster.b19p7.mongodb.net/sample_analytics?retryWrites=true&w=majority
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: test_user
+    url: jdbc:postgresql://89.223.28.130:5432/test
+    username: test_user
+  favicon:
+    enabled: false
+  security:
+    user:
+      name: admin
+      password: pass
+# ===============================
+# Kafka configuration
+# ===============================
+  kafka:
+    bootstrap-servers: ${kafka_bootstrap_servers:localhost:9092}
+    properties:
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username=${kafka_username:'admin'} password=${kafka_password:'admin-secret'};
+        mechanism: PLAIN
+      security:
+        protocol: SASL_PLAINTEXT
+    consumer:
+      auto-offset-reset: earliest
+      group-id: example
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 5
+      fetch-max-wait: 360000
+      enable-auto-commit: false
+      client-id: example
+      properties:
+#        fetch.min.bytes: 1000
+        fetch.min.bytes: 1
+        fetch.max.wait.ms: 200000
+    producer:
+      client-id: example
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 2
+    jaas:
+      enabled: true
+    listener:
+      poll-timeout: 180000
+      concurrency: 2
+      ack-mode: manual_immediate
+      idle-event-interval: 200000
+# ===============================
+#Configuring WEB
+# ===============================
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+user:
+  authKey: h26a7630al9622f9cd94ecbd3b0c9bbba30ae66f8456524796cccdeea70f8c5o

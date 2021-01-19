@@ -5,16 +5,25 @@ Web application that allows you:
  1. manage users (create, view the list and details, edit and delete) with RESTful services,
  2. login/register in the system with using PostgreSQL data
  3. see the list of transaction from NoSQL (MongoDB)
+ 4. Write and read event stream from kafka
 
-Tags: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb
+Tags: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb, #kafka
 
-Project uses: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
+Project uses: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server, Local Kafka Server.
 ---
 
-### Configuration works for start of project:
+### Configuration for start of project:
 
 1. Use src/resources/application.properties for configure connection to DB MongoDB, PostgreSQL or use existed demo access.
-2. Set "VM options"  `-Djdk.tls.client.protocols=TLSv1.2`
+2. Use external kafka server or local server, e.g with docker from wurstmeister image 
+Fill with some value `YOUR_BROKER_HOST_PUBLIC_IP` at `KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://YOUR_BROKER_HOST_PUBLIC_IP:9092` 
+in ``kafka_conf/docker-compose.yml`` file to call kafka from external hosts. Then start:
+```sh
+$ docker-compose -f .kafka_conf/docker-compose.yml up -d
+```
+Move `src/main/java/com/khsa/kafka` to `src/main/java/com/khsa/usermanagement/kafka` to enable auto assembly Kafka-Classes by Spring-Boot
+3. Set "VM options"  `-Djdk.tls.client.protocols=TLSv1.2`
+
 ![](info_images/RunDebug Configurations.jpg?raw=true)
 
 ### Sugar 
@@ -33,15 +42,22 @@ Project uses: JDK14, MongoDB Atlas Cluster, Remote PostgreSQL server.
  1. Управлять пользователями (создавать, просматривать список и детали, редактировать и удалять) с помощью служб RESTful,
  2. Авторизоваться / зарегистрироваться в системе с использованием данных из PostgreSQL и кешированием пароля
  3. Посмотреть веб-страницу со списком транзакций из NoSQL (MongoDB)
-Тэги: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb
+Тэги: #java, #springboot, #hibernate, #jpa, #springSecurity, #mvc, #thymeleaf, #postgreSQL, #mongodb, #kafka
 
-В проекте используется: JDK14, MongoDB Atlas Cluster, удаленный сервер PostgreSQL.
+В проекте используется: JDK14, MongoDB Atlas Cluster, удаленный сервер PostgreSQL, Local Kafka Server.
 
 
-### Конфигурация работает для запуска проекта:
+### Конфигурация для запуска проекта:
 
-1. Используйте src / resources / application.properties для настройки подключения к БД MongoDB, PostgreSQL или используйте существующий демонстрационный доступ.
-2. Установите "VM options" `-Djdk.tls.client.protocols = TLSv1.2`
+1. Используйте src / resources / application.properties для изменения настроек подключения к БД MongoDB, PostgreSQL или используйте существующий демонстрационный доступ.
+2. Необходимо использовать внешний или локальный сервер kafka, например с докером из образа wurstmeister
+   Заполните некоторым значением `YOUR_BROKER_HOST_PUBLIC_IP` в` KAFKA_ADVERTISED_LISTENERS: INSIDE: // kafka: 9093, OUTSIDE: // YOUR_BROKER_HOST_PUBLIC_IP: 9092`
+   в файле ``kafka_conf/docker-compose.yml`` для вызова kafka с внешних хостов. Для запуска образов выполните команду:
+   ```sh
+   $ docker-compose -f .kafka_conf/docker-compose.yml up -d
+   ```
+   Переместите `src/main/java/com/khsa/kafka` в `src/main/java/com/khsa/usermanagement/kafka`, чтобы включить автоматическую сборку Классов-Кафки с помощью Spring-Boot.
+3. Установите "VM options" `-Djdk.tls.client.protocols = TLSv1.2`
 ![](info_images/RunDebug Configurations.jpg?raw=true)
 
 ### Основные особенности

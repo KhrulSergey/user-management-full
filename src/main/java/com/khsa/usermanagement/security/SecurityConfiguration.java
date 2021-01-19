@@ -1,11 +1,16 @@
 package com.khsa.usermanagement.security;
 
+import com.khsa.usermanagement.service.UserService;
+import com.khsa.usermanagement.util.CustomPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -13,20 +18,25 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private UserService userService;
+    private CustomPasswordEncoder customPasswordEncoder;
+
+    /**
+     * Creates an instance with the default configuration enabled.
+     */
     @Autowired
-    private UserDetailsService userDetailsService;
-//
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    public SecurityConfiguration(UserService userService, CustomPasswordEncoder customPasswordEncoder) {
+        this.userService = userService;
+        this.customPasswordEncoder = customPasswordEncoder;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/*/html").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/user/**").access("hasAuthority('user')")
+                .antMatchers("/analytic/**").access("hasAuthority('admin')")
+                .antMatchers("/").permitAll()
+                .antMatchers("/user/register").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
@@ -41,10 +51,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
-//    @Autowired
-//    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
+//    http.logout().logoutUrl("/my/logout")
+//      .logoutSuccessUrl("/my/index")
+//      .logoutSuccessHandler(logoutSuccessHandler)
+//      .invalidateHttpSession(true)
+//      .addLogoutHandler(logoutHandler)
+//      .deleteCookies(cookieNamesToClear)
+//      .and()
+//
+    @Autowired
+    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(customPasswordEncoder);
+    }
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
