@@ -92,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping(path = WEB_PATH_SAVE)
-    protected ModelAndView registerNewUser(HttpServletRequest request, @ModelAttribute("userNew") User user,
+    protected ModelAndView registerNewUser(HttpServletRequest request, @Valid @ModelAttribute("userNew") User user,
                                            BindingResult result) {
 
         if (result.hasErrors()) {

@@ -5,6 +5,7 @@ import com.khsa.usermanagement.repository.UserRepository;
 import com.khsa.usermanagement.repository.mongo.AccountRepository;
 import com.khsa.usermanagement.repository.mongo.CustomerRepository;
 import com.khsa.usermanagement.repository.mongo.TransactionRepository;
+import com.khsa.usermanagement.util.UserComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,21 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> list(Pageable pageable) {
         LOG.info("getting users: ");
-        listDistinct(pageable);
         return userRepository.findAllByOrderByIdAsc(pageable);
-
-//        Page<User> userPage= userRepository.findAllByOrderByIdAsc(pageable);
-//        List<User> userList = userPage.stream().distinct().collect(Collectors.toList());
-//        HashSet<Object> seen=new HashSet<>();
-//        List<User> distinctCustomers = userList.stream()
-//                .collect(Collectors.collectingAndThen(
-//                        Collectors.toMap(c -> Arrays.asList(c.getName(), c.getUsername()),
-//                                Function.identity(), (a, b) -> a, LinkedHashMap::new),
-//                        m -> new ArrayList<>(m.values())));
-//
-//        userList.removeIf(user -> !seen.add(Arrays.asList(user.getName(), user.getUsername())));
-//        return userPage;
-
     }
 
     /**
@@ -188,6 +175,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Получение списка уникальных пользователей из БД
+     * Тест разных способов поиска distinct
      *
      * @return Список имеющихся пользователей из БД
      */
@@ -202,12 +190,9 @@ public class UserServiceImpl implements UserService {
                                 Function.identity(), (a, b) -> a, LinkedHashMap::new),
                         m -> new ArrayList<>(m.values())));
 
-
-
-        List<User> userList = userPage.get().collect(Collectors.toList());
+        List<User> userList = userPage.get().sorted(new UserComparator()).collect(Collectors.toList());
         HashSet<Object> seen=new HashSet<>();
         userList.removeIf(user -> !seen.add(Arrays.asList(user.getName(), user.getUsername())));
         return distinctUsers;
-
     }
 }

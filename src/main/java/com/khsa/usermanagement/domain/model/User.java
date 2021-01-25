@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -47,7 +46,7 @@ public class User implements UserDetails {
     private String name;
 
     @NotNull
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String username;
 
     @NotNull
